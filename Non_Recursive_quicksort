@@ -1,0 +1,63 @@
+#include <iostream>
+#include <stack>
+#include <chrono>
+#include <cstdlib>
+#include <ctime>
+#include<vector>
+
+
+using namespace std;
+
+void quickSort(long arr[], int left, int right) {
+    stack<int> stack;
+    stack.push(left);
+    stack.push(right);
+
+    while (!stack.empty()) {
+        int r = stack.top();
+        stack.pop();
+        int l = stack.top();
+        stack.pop();
+
+        int i = l, j = r;
+        int pivot = arr[(l + r) / 2];
+
+        while (i <= j) {
+            while (arr[i] < pivot) {
+                i++;
+            }
+            while (arr[j] > pivot) {
+                j--;
+            }
+            if (i <= j) {
+                swap(arr[i], arr[j]);
+                i++;
+                j--;
+            }
+        }
+
+        if (l < j) {
+            stack.push(l);
+            stack.push(j);
+        }
+        if (i < r) {
+            stack.push(i);
+            stack.push(r);
+        }
+    }
+}
+
+int main() {
+    auto start_time = std::chrono::high_resolution_clock::now();
+    srand(time(NULL)); // initialize the random seed
+    const int SIZE = 20000;
+    long arr[SIZE];
+
+    quickSort(arr, 0, SIZE - 1);
+    auto end_time = std::chrono::high_resolution_clock::now();
+
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count();
+
+    std::cout << "Execution time: " << duration << " microseconds" << std::endl;
+    return 0;
+}
