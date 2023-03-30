@@ -31,6 +31,10 @@ void Median(vector<int> arr) {
         } else {
             median = temp_arr[mid];
         }
+        for(int k=0;k<i+1;k++){
+            cout<<temp_arr[k]<<" ";
+        }
+        cout<<"---->";
         cout << fixed << setprecision(1) << median << endl;
     }
 }
