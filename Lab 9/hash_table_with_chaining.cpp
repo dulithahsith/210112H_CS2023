@@ -66,7 +66,7 @@ struct HashTable{
             cout<<"slot empty";
         }
         else{
-            password->search(user_name);
+            password[hash].search(user_name);
         }
     }
 };
